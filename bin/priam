@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+require "priam"
+
+command = ARGV.shift
+
+exit_code = 0
+
+case command
+when "delete"
+  exit_code = Priam::Command::Delete.run(ARGV) || 0
+when "get"
+  exit_code = Priam::Command::Get.run(ARGV) || 0
+when "put"
+  exit_code = Priam::Command::Put.run(ARGV) || 0
+when "insert"
+  exit_code = Priam::Command::Insert.run(ARGV) || 0
+else
+  STDERR.puts "invalid command: '#{command}'"
+  exit_code = 1
+end
+
+exit exit_code

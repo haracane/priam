@@ -1,7 +1,36 @@
 = priam
 
-Description goes here.
+'priam' is a command-base client for Cassandra.
 
+== Supported Ruby versions and implementations
+bunnish should work identically on:
+
+* Ruby 1.9.3+
+* Ruby 1.9.2+
+* Ruby 1.8.7+
+
+== Install
+
+You can install priam by gem.
+ gem install priam
+
+== Usage
+
+insert value:
+ $ cat input.txt
+ key1	val2
+ key2	val2
+ $ cat input.txt | priam insert -h cassandra-server -p 9160 --keyspace TestKS --column-family TestCF
+
+get record in json:
+ $ echo key1 | priam get -h cassandra-server -p 9160 --keyspace TestKS --column-family TestCF
+ 
+get column value:
+ $ echo key1 | priam get -h cassandra-server -p 9160 --keyspace TestKS --column-family TestCF --name d
+
+delete key&value:
+ $ echo key1 | priam delete -h cassandra-server -p 9160 --keyspace TestKS --column-family TestCF
+ 
 == Contributing to priam
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
