@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "priam"
   gem.homepage = "http://github.com/haracane/priam"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Command-base client for Cassandra.}
+  gem.description = %Q{Command-base client for Cassandra.}
   gem.email = "haracane@gmail.com"
   gem.authors = ["Kenji Hara"]
   # dependencies defined in Gemfile
