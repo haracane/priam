@@ -45,7 +45,7 @@ describe "bin/priam" do
         tmpfile.puts record.join("\t")
       end
       tmpfile.close
-      `cat #{tmpfile.path} | #{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam insert --keyspace PriamTest --column-family PriamCF -h #{@hostname} -p 9160 #{@stderr_dst}`
+      `cat #{tmpfile.path} | #{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam insert --keyspace PriamTest --column-family PriamCF -h #{@hostname} -p 9160 --verbose #{@stderr_dst}`
       tmpfile.unlink
 
       result = `echo key1 | #{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam get --keyspace PriamTest --column-family PriamCF -h #{@hostname} -p 9160 --name d 2> /dev/null`
@@ -62,14 +62,14 @@ describe "bin/priam" do
     context "when key&value exists" do
       it "should output value" do
         
-        result = `echo key1 | #{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam get --keyspace PriamTest --column-family PriamCF -h #{@hostname} -p 9160 --name d #{@stderr_dst}`
+        result = `echo key1 | #{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam get --keyspace PriamTest --column-family PriamCF -h #{@hostname} -p 9160 --name d --verbose #{@stderr_dst}`
         result.chomp!
         result.should == "val1"
       end
     end
     context "when key&value does not exist" do
       it "should not output value" do
-        result = `echo nokey | #{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam get --keyspace PriamTest --column-family PriamCF -h #{@hostname} -p 9160 --name d #{@stderr_dst}`
+        result = `echo nokey | #{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam get --keyspace PriamTest --column-family PriamCF -h #{@hostname} -p 9160 --name d --verbose #{@stderr_dst}`
         result.chomp!
         result.should == ""
       end
@@ -79,7 +79,7 @@ describe "bin/priam" do
   context "when command = delete" do
     context "when key&value exists" do
       it "should delete key&value" do
-        `echo key1 | #{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam delete --keyspace PriamTest --column-family PriamCF -h #{@hostname} -p 9160 #{@stderr_dst}`
+        `echo key1 | #{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam delete --keyspace PriamTest --column-family PriamCF -h #{@hostname} -p 9160 --verbose #{@stderr_dst}`
         result = `echo key1 | #{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam get --keyspace PriamTest --column-family PriamCF -h #{@hostname} -p 9160 --name d 2>/dev/null`
         result.chomp!
         result.should == ""
@@ -88,7 +88,7 @@ describe "bin/priam" do
     
     context "when key&value does not exist" do
       it "should do nothing" do
-        `echo nokey | #{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam delete --keyspace PriamTest --column-family PriamCF -h #{@hostname} -p 9160 #{@stderr_dst}`
+        `echo nokey | #{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam delete --keyspace PriamTest --column-family PriamCF -h #{@hostname} -p 9160 --verbose #{@stderr_dst}`
         result = `echo nokey | #{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam get --keyspace PriamTest --column-family PriamCF -h #{@hostname} -p 9160 --name d 2>/dev/null`
         result.chomp!
         result.should == ""

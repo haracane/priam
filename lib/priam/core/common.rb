@@ -14,6 +14,8 @@ module Priam::Core
       
       replication_factor = 1
       
+      verbose_flag = false
+      
       next_argv = []
       
       while 0 < argv.size do
@@ -49,11 +51,19 @@ module Priam::Core
           output_keys_flag = true
         when '--replication-factor'
           replication_factor = argv.shift.to_i
+        when '--verbose'
+          verbose_flag = true
         else 
           next_argv.push val
         end
       end
       argv.push(*next_argv)
+      
+      if verbose_flag then
+        Priam.logger.level = Logger::INFO
+      else
+        Priam.logger.level = Logger::WARN
+      end
       
       return {
         :host=>host,
@@ -70,7 +80,8 @@ module Priam::Core
         :count_log_path=>count_log_path,
         :check_exist_flag=>check_exist_flag,
         :output_keys_flag=>output_keys_flag,
-        :replication_factor=>replication_factor
+        :replication_factor=>replication_factor,
+        :verbose_flag=>verbose_flag
       }
     end
   end
