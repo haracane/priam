@@ -24,18 +24,18 @@ module Priam::Command
         begin
           if super_column then
             if check_exist_flag && !client.exists?(column_family, super_column, key) then
-              Priam.logger.info " key '#{key}' does not exist"
+              Priam.logger.info " column '#{key}' does not exist"
             else
               client.remove(column_family, super_column, key)
-              Priam.logger.info " removed key '#{key}'" if output_keys
+              Priam.logger.info " removed column '#{key}'" if output_keys
               count +=1
             end
           elsif column_family then
             if check_exist_flag && !client.exists?(column_family, key) then
-              Priam.logger.info " super column '#{key}' does not exist"
+              Priam.logger.info " column '#{key}' does not exist"
             else
               client.remove(column_family, key)
-              Priam.logger.info " removed super column '#{key}'"
+              Priam.logger.info " removed column '#{key}'"
               count +=1
             end
           end
@@ -50,7 +50,9 @@ module Priam::Command
         end
       end
       
-      Priam.logger.info " removed #{count} columns from cassandra://#{host}:#{port}/#{keyspace}/#{column_family}/#{super_column}"
+      uri = "cassandra://#{host}:#{port}/#{keyspace}/#{column_family}"
+      uri += "/#{super_column}" if super_column
+      Priam.logger.info " removed #{count} columns from #{uri}"
     end
   end
 end

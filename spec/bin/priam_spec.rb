@@ -23,6 +23,16 @@ describe "bin/priam" do
     `cat #{tmpfile.path} | #{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam insert --keyspace PriamTest --column-family PriamCF -h #{@hostname} -p 9160 2> /dev/null`
     tmpfile.unlink
   end
+
+  context "when command = cql" do
+    context "when sub-command = create" do
+      it "should output create cql" do
+        result = `#{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam cql create --keyspace PriamTest --column-family PriamCF`
+        result.should =~ /create keyspace PriamTest/
+        result.should =~ /create column family PriamCF/
+      end
+    end
+  end
   
   context "when command = insert" do
     it "should insert values" do

@@ -21,15 +21,29 @@ insert value:
  key1	val2
  key2	val2
  $ cat input.txt | priam insert -h cassandra-server -p 9160 --keyspace TestKS --column-family TestCF
+ [2012-12-12 10:16:46](INFO) insert into cassandra://cassandra-server:9160/TestKS/TestCF
+ [2012-12-12 10:16:46](INFO) inserted 2 columns into cassandra://cassandra-server:9160/TestKS/TestCF/
 
 get record in json:
- $ echo key1 | priam get -h cassandra-server -p 9160 --keyspace TestKS --column-family TestCF
+ $ cat keys.txt
+ key1
+ key2
+ $ cat keys.txt | priam get -h cassandra-server -p 9160 --keyspace TestKS --column-family TestCF
+ {"d":"val1"}
+ {"d":"val2"}
+ [2012-12-12 10:17:54](INFO) GET [key1,key2]
  
 get column value:
- $ echo key1 | priam get -h cassandra-server -p 9160 --keyspace TestKS --column-family TestCF --name d
+ $ cat keys.txt | priam get -h cassandra-server -p 9160 --keyspace TestKS --column-family TestCF --name d
+ val1
+ val2
+ [2012-12-12 10:29:42](INFO) GET [key1,key2]
 
 delete key&value:
- $ echo key1 | priam delete -h cassandra-server -p 9160 --keyspace TestKS --column-family TestCF
+ $ cat keys.txt | priam delete -h cassandra-server -p 9160 --keyspace TestKS --column-family TestCF
+ [2012-12-12 10:31:02](INFO) removed column 'key1'
+ [2012-12-12 10:31:02](INFO) removed column 'key2'
+ [2012-12-12 10:31:02](INFO) removed 2 columns from cassandra://localhost:9160/TestKS/TestCF
  
 == Contributing to priam
  
@@ -45,4 +59,3 @@ delete key&value:
 
 Copyright (c) 2012 Kenji Hara. See LICENSE.txt for
 further details.
-
