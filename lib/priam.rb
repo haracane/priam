@@ -2,6 +2,10 @@ require "rubygems"
 require "cassandra"
 
 module Priam
+  def self.get_column(client, column_family, super_column, key, options={})
+    return Priam::Core::Get.get_column(client, column_family, super_column, key, options)
+  end
+  
   def self.logger
     if @logger.nil?
       @logger = (rails_logger || default_logger)
