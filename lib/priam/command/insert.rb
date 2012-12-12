@@ -105,7 +105,9 @@ module Priam::Command
         end
       end
       
-      Priam.logger.info " inserted #{count} columns into cassandra://#{host}:#{port}/#{keyspace}/#{column_family}/#{super_column}"
+      uri = "cassandra://#{host}:#{port}/#{keyspace}/#{column_family}"
+      uri += "/#{super_column}" if super_column
+      Priam.logger.info " inserted #{count} columns into #{uri}"
     
     end
   end
