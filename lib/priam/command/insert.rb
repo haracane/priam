@@ -60,11 +60,13 @@ module Priam::Command
       
       count = 0
       while line = input_stream.gets do
-        next if line.nil? || line == ''
+        line.chomp!
+        next if line == ''
         record = line.chomp.split(/\t/, 2)
       #  record = record.map{|val| DbEscape.db_unescape(val)}
         key = record.shift
-        value = record.shift
+        value = record.shift || ""
+        
       #  STDERR.puts "insert #{record.to_json}"
         retry_count = 0
         begin
@@ -103,7 +105,7 @@ module Priam::Command
         end
       end
       
-      Priam.logger.warn " inserted #{count} columns into cassandra://#{host}:#{port}/#{keyspace}/#{column_family}/#{super_column}"
+      Priam.logger.info " inserted #{count} columns into cassandra://#{host}:#{port}/#{keyspace}/#{column_family}/#{super_column}"
     
     end
   end

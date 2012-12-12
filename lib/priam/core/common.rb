@@ -12,6 +12,8 @@ module Priam::Core
       check_exist_flag = false
       output_keys_flag = false
       
+      replication_factor = 1
+      
       next_argv = []
       
       while 0 < argv.size do
@@ -45,6 +47,8 @@ module Priam::Core
           check_exist_flag = true
         when '--output-keys'
           output_keys_flag = true
+        when '--replication-factor'
+          replication_factor = argv.shift.to_i
         else 
           next_argv.push val
         end
@@ -65,7 +69,8 @@ module Priam::Core
         :retry_max_count=>retry_max_count,
         :count_log_path=>count_log_path,
         :check_exist_flag=>check_exist_flag,
-        :output_keys_flag=>output_keys_flag
+        :output_keys_flag=>output_keys_flag,
+        :replication_factor=>replication_factor
       }
     end
   end
