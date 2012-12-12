@@ -50,6 +50,10 @@ module Priam::Command
       if key_list != [] then
         Priam.logger.info " GET [#{key_list.join(',')}]"
       end
+
+      uri = "cassandra://#{host}:#{port}/#{keyspace}/#{column_family}"
+      uri += "/#{super_column}" if super_column
+      Priam.logger.info " got #{count} columns from #{uri}"
     end
   end
 end
