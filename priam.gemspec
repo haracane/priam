@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "priam"
-  s.version = "0.0.1"
+  s.version = "0.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kenji Hara"]
@@ -37,6 +37,7 @@ Gem::Specification.new do |s|
     "lib/priam/command/put.rb",
     "lib/priam/core.rb",
     "lib/priam/core/common.rb",
+    "priam.gemspec",
     "spec/bin/priam_spec.rb",
     "spec/lib/priam/command/delete_spec.rb",
     "spec/lib/priam/command/get_spec.rb",
