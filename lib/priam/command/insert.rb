@@ -86,7 +86,8 @@ module Priam::Command
             if raise_exception_flag then
               raise e
             else
-              Priam.logger.warn(" #{e.message}(#{e.class.name}): #{e.backtrace.map{|s| "  #{s}"}.join("\n")}")
+              backtrace = e.backtrace.map{|s| "  #{s}"}.join("\n")
+              Priam.logger.warn(" #{e.message}(#{e.class.name}): #{backtrace}")
             end
           else
             retry_count += 1
