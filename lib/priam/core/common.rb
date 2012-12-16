@@ -5,7 +5,6 @@ module Priam::Core
       port = 9160
       raise_exception_flag = false
       
-      value_column = "d"
       unit_size = 10000
       retry_max_count = 0
 

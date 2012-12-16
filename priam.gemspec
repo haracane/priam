@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "priam"
-  s.version = "0.0.3"
+  s.version = "0.0.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kenji Hara"]
-  s.date = "2012-12-12"
+  s.date = "2012-12-16"
   s.description = "Command-base client for Cassandra."
   s.email = "haracane@gmail.com"
   s.executables = ["priam"]
@@ -33,6 +33,7 @@ Gem::Specification.new do |s|
     "lib/priam/command/cql/create.rb",
     "lib/priam/command/delete.rb",
     "lib/priam/command/get.rb",
+    "lib/priam/command/help.rb",
     "lib/priam/command/insert.rb",
     "lib/priam/command/put.rb",
     "lib/priam/core.rb",
@@ -51,7 +52,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/haracane/priam"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.21"
+  s.rubygems_version = "1.8.17"
   s.summary = "Command-base client for Cassandra."
 
   if s.respond_to? :specification_version then
