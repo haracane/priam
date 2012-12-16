@@ -7,7 +7,7 @@ module Priam::Command
       keyspace = params[:keyspace]
       column_family = params[:column_family]
       super_column = params[:super_column]
-      name = params[:name]
+      name = params[:value_column]
 
       client = Cassandra.new(keyspace, "#{host}:#{port}")
       

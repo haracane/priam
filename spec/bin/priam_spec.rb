@@ -34,6 +34,13 @@ describe "bin/priam" do
     end
   end
   
+  context "when command = help" do
+    it "should output help" do
+      result = `#{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam help`
+      result.length.should > 0
+    end
+  end
+  
   context "when command = insert" do
     it "should insert values" do
       input = [
