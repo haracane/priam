@@ -24,6 +24,14 @@ insert value:
  [2012-12-12 10:16:46](INFO) insert into cassandra://cassandra-server:9160/TestKS/TestCF
  [2012-12-12 10:16:46](INFO) inserted 2 columns into cassandra://cassandra-server:9160/TestKS/TestCF
 
+insert json:
+ $ cat input.txt
+ key1	{"d":"val2"}
+ key2	{"d":"val2"}
+ $ cat input.txt | priam insert -h cassandra-server -p 9160 --keyspace TestKS --column-family TestCF --json --verbose
+ [2012-12-12 10:16:46](INFO) insert into cassandra://cassandra-server:9160/TestKS/TestCF
+ [2012-12-12 10:16:46](INFO) inserted 2 columns into cassandra://cassandra-server:9160/TestKS/TestCF
+
 get record in json:
  $ cat keys.txt
  key1
