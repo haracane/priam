@@ -42,26 +42,51 @@ describe "bin/priam" do
   end
   
   context "when command = insert" do
-    it "should insert values" do
-      input = [
-        ["key1", "val10"],
-        ["key2", "val2"]
-      ]
-      tmpfile = Tempfile.new("bin_priam")
-      input.each do |record|
-        tmpfile.puts record.join("\t")
+    context "with json option" do
+      it "should insert values" do
+        input = [
+          ["key3", {"data"=>"val3"}.to_json],
+          ["key4", {"data"=>"val4"}.to_json]
+        ]
+        tmpfile = Tempfile.new("bin_priam")
+        input.each do |record|
+          tmpfile.puts record.join("\t")
+        end
+        tmpfile.close
+        `cat #{tmpfile.path} | #{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam insert --keyspace PriamTest --column-family PriamCF -h #{@hostname} -p 9160 --json --verbose #{@stderr_dst}`
+        tmpfile.unlink
+  
+        result = `echo key3 | #{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam get --keyspace PriamTest --column-family PriamCF -h #{@hostname} -p 9160 --value-column data 2> /dev/null`
+        result.chomp!
+        result.should == "val3"
+        
+        result = `echo key4 | #{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam get --keyspace PriamTest --column-family PriamCF -h #{@hostname} -p 9160 --value-column data 2> /dev/null`
+        result.chomp!
+        result.should == "val4"
       end
-      tmpfile.close
-      `cat #{tmpfile.path} | #{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam insert --keyspace PriamTest --column-family PriamCF -h #{@hostname} -p 9160 --verbose #{@stderr_dst}`
-      tmpfile.unlink
-
-      result = `echo key1 | #{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam get --keyspace PriamTest --column-family PriamCF -h #{@hostname} -p 9160 --name d 2> /dev/null`
-      result.chomp!
-      result.should == "val10"
-      
-      result = `echo key2 | #{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam get --keyspace PriamTest --column-family PriamCF -h #{@hostname} -p 9160 --name d 2> /dev/null`
-      result.chomp!
-      result.should == "val2"
+    end
+    context "without json option" do
+      it "should insert values" do
+        input = [
+          ["key1", "val10"],
+          ["key2", "val2"]
+        ]
+        tmpfile = Tempfile.new("bin_priam")
+        input.each do |record|
+          tmpfile.puts record.join("\t")
+        end
+        tmpfile.close
+        `cat #{tmpfile.path} | #{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam insert --keyspace PriamTest --column-family PriamCF -h #{@hostname} -p 9160 --verbose #{@stderr_dst}`
+        tmpfile.unlink
+  
+        result = `echo key1 | #{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam get --keyspace PriamTest --column-family PriamCF -h #{@hostname} -p 9160 --name d 2> /dev/null`
+        result.chomp!
+        result.should == "val10"
+        
+        result = `echo key2 | #{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam get --keyspace PriamTest --column-family PriamCF -h #{@hostname} -p 9160 --name d 2> /dev/null`
+        result.chomp!
+        result.should == "val2"
+      end
     end
   end
   

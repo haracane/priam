@@ -13,6 +13,7 @@ module Priam::Command
       weight_second = params[:weight_second]
       retry_max_count = params[:retry_max_count]
       count_log_path = params[:count_log_path]
+      json_flag = params[:json_flag]
 
       keyspace = argv.shift if 0 < argv.length
       column_family = argv.shift if 0 < argv.length
@@ -72,10 +73,15 @@ module Priam::Command
         begin
       #    STDERR.puts "#{retry_count} #{retry_max_count}"
       #    raise "Test Error"
-          if super_column then
-            client.insert(column_family, super_column, {key=>{value_column=>value}})
+          if json_flag
+            column = JSON.parse(value)
           else
-            client.insert(column_family, key, {value_column=>value})
+            column = {value_column=>value}
+          end
+          if super_column then
+            client.insert(column_family, super_column, {key=>column})
+          else
+            client.insert(column_family, key, column)
           end
           count += 1
           if count % unit_size == 0 then
