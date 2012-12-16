@@ -66,25 +66,36 @@ describe "bin/priam" do
   end
   
   context "when command = get" do
-    context "when key&value exists" do
-      it "should output value" do
-        result = `echo key1 | #{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam get --keyspace PriamTest --column-family PriamCF -h #{@hostname} -p 9160 --name d --verbose #{@stderr_dst}`
-        result.chomp!
-        result.should == "val1"
+    context "without value-column option" do
+      context "when key&value exists" do
+        it "should output json" do
+          result = `echo key1 | #{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam get --keyspace PriamTest --column-family PriamCF -h #{@hostname} -p 9160 --verbose #{@stderr_dst}`
+          result.chomp!
+          result.should == '{"d":"val1"}'
+        end
       end
     end
-    context "when key&value does not exist" do
-      it "should not output value" do
-        result = `echo nokey | #{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam get --keyspace PriamTest --column-family PriamCF -h #{@hostname} -p 9160 --name d --verbose #{@stderr_dst}`
-        result.chomp!
-        result.should == ""
+    context "with value-column option" do
+      context "when key&value exists" do
+        it "should output value" do
+          result = `echo key1 | #{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam get --keyspace PriamTest --column-family PriamCF -h #{@hostname} -p 9160 --name d --verbose #{@stderr_dst}`
+          result.chomp!
+          result.should == "val1"
+        end
       end
-    end
-    context "when retry option is enabled" do
-      it "should output value" do
-        result = `echo key1 | #{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam get --keyspace PriamTest --column-family PriamCF -h #{@hostname} -p 9160 --name d --retry 5 --weight 1000 --verbose #{@stderr_dst}`
-        result.chomp!
-        result.should == "val1"
+      context "when key&value does not exist" do
+        it "should not output value" do
+          result = `echo nokey | #{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam get --keyspace PriamTest --column-family PriamCF -h #{@hostname} -p 9160 --name d --verbose #{@stderr_dst}`
+          result.chomp!
+          result.should == ""
+        end
+      end
+      context "when retry option is enabled" do
+        it "should output value" do
+          result = `echo key1 | #{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam get --keyspace PriamTest --column-family PriamCF -h #{@hostname} -p 9160 --name d --retry 5 --weight 1000 --verbose #{@stderr_dst}`
+          result.chomp!
+          result.should == "val1"
+        end
       end
     end
   end

@@ -8,7 +8,7 @@ describe Priam::Core::Common do
         result[:host].should == "localhost"
         result[:port].should == 9160
         result[:raise_exception_flag].should == false
-        result[:value_column].should == "d"
+        result[:value_column].should == nil
         result[:retry_max_count].should == 0
         result[:check_exist_flag].should == false
         result[:output_keys_flag].should == false
