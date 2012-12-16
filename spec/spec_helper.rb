@@ -45,7 +45,7 @@ create column family PriamCF
     tmpfile.puts cql
     tmpfile.close
     hostname = `hostname`.chomp
-    `/usr/lib/cassandra/bin/cassandra-cli -h #{hostname} -p 9160 -f #{tmpfile.path}`
+    `/usr/lib/cassandra/bin/cassandra-cli -h #{hostname} -p 9160 -f #{tmpfile.path} 2>/dev/null`
     tmpfile.unlink
   end
   
@@ -55,7 +55,7 @@ create column family PriamCF
     tmpfile.puts cql
     tmpfile.close
     hostname = `hostname`.chomp
-    `/usr/lib/cassandra/bin/cassandra-cli -h #{hostname} -p 9160 -f #{tmpfile.path}`
+    `/usr/lib/cassandra/bin/cassandra-cli -h #{hostname} -p 9160 -f #{tmpfile.path} 2>/dev/null`
     tmpfile.unlink
   end
 end

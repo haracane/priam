@@ -9,7 +9,7 @@ module Priam::Command
       super_column = params[:super_column]
       raise_exception_flag = params[:raise_exception_flag]
       unit_size = params[:unit_size]
-      value_column = params[:value_column]
+      value_column = params[:value_column] || "d"
       weight_second = params[:weight_second]
       retry_max_count = params[:retry_max_count]
       count_log_path = params[:count_log_path]
