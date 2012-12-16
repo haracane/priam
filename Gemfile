@@ -7,6 +7,7 @@ gem "thrift", "~> 0.7.0"
 gem "thrift_client", "~> 0.7.1"
 gem "simple_uuid", "~> 0.2.0"
 gem "cassandra", "~> 0.12.1"
+gem "json", ">= 1.6.5"
 
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.

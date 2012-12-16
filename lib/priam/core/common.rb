@@ -7,12 +7,14 @@ module Priam::Core
       
       unit_size = 10000
       retry_max_count = 0
+      weight_second = 1
 
       check_exist_flag = false
       output_keys_flag = false
       
       replication_factor = 1
       
+      json_flag = false
       verbose_flag = false
       
       next_argv = []
@@ -50,6 +52,8 @@ module Priam::Core
           output_keys_flag = true
         when '--replication-factor'
           replication_factor = argv.shift.to_i
+        when '--json'
+          json_flag = true
         when '--verbose'
           verbose_flag = true
         else 
@@ -80,6 +84,7 @@ module Priam::Core
         :check_exist_flag=>check_exist_flag,
         :output_keys_flag=>output_keys_flag,
         :replication_factor=>replication_factor,
+        :json_flag=>json_flag,
         :verbose_flag=>verbose_flag
       }
     end
