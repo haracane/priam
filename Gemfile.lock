@@ -14,8 +14,8 @@ GEM
       rake
       rdoc
     json (1.7.5)
+    multi_json (1.5.0)
     rake (10.0.2)
-    rcov (1.0.0)
     rdoc (3.12)
       json (~> 1.4)
     rspec (2.8.0)
@@ -27,6 +27,10 @@ GEM
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.8.0)
     simple_uuid (0.2.0)
+    simplecov (0.7.1)
+      multi_json (~> 1.0)
+      simplecov-html (~> 0.7.1)
+    simplecov-html (0.7.1)
     thrift (0.7.0)
     thrift_client (0.7.1)
       thrift (~> 0.7.0)
@@ -39,9 +43,9 @@ DEPENDENCIES
   cassandra (~> 0.12.1)
   jeweler (~> 1.8.4)
   json (>= 1.6.5)
-  rcov
   rdoc (~> 3.12)
   rspec (~> 2.8.0)
   simple_uuid (~> 0.2.0)
+  simplecov
   thrift (~> 0.7.0)
   thrift_client (~> 0.7.1)
