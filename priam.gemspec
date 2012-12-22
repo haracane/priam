@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "priam"
-  s.version = "0.0.6"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kenji Hara"]
-  s.date = "2012-12-16"
+  s.date = "2012-12-22"
   s.description = "Command-base client for Cassandra."
   s.email = "haracane@gmail.com"
   s.executables = ["priam"]
@@ -21,7 +21,6 @@ Gem::Specification.new do |s|
     ".document",
     ".rspec",
     "Gemfile",
-    "Gemfile.lock",
     "LICENSE.txt",
     "README.rdoc",
     "Rakefile",
@@ -52,7 +51,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/haracane/priam"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.17"
+  s.rubygems_version = "1.8.24"
   s.summary = "Command-base client for Cassandra."
 
   if s.respond_to? :specification_version then
