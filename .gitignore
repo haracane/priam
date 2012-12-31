@@ -49,3 +49,6 @@ pkg
 #*.rbc
 
 Gemfile.lock
+
+spec/reports
+
