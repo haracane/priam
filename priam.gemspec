@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "priam"
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kenji Hara"]
-  s.date = "2012-12-22"
+  s.date = "2013-01-01"
   s.description = "Command-base client for Cassandra."
   s.email = "haracane@gmail.com"
   s.executables = ["priam"]
@@ -63,22 +63,26 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<simple_uuid>, ["~> 0.2.0"])
       s.add_runtime_dependency(%q<cassandra>, ["~> 0.12.1"])
       s.add_runtime_dependency(%q<json>, [">= 1.6.5"])
-      s.add_development_dependency(%q<rspec>, ["~> 2.8.0"])
+      s.add_development_dependency(%q<rspec>, [">= 2.8.0"])
       s.add_development_dependency(%q<rdoc>, ["~> 3.12"])
       s.add_development_dependency(%q<bundler>, [">= 1.0.0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.8.4"])
       s.add_development_dependency(%q<rcov>, [">= 0"])
+      s.add_development_dependency(%q<ci_reporter>, [">= 1.7.0"])
+      s.add_development_dependency(%q<flog>, [">= 3.2.0"])
     else
       s.add_dependency(%q<thrift>, ["~> 0.7.0"])
       s.add_dependency(%q<thrift_client>, ["~> 0.7.1"])
       s.add_dependency(%q<simple_uuid>, ["~> 0.2.0"])
       s.add_dependency(%q<cassandra>, ["~> 0.12.1"])
       s.add_dependency(%q<json>, [">= 1.6.5"])
-      s.add_dependency(%q<rspec>, ["~> 2.8.0"])
+      s.add_dependency(%q<rspec>, [">= 2.8.0"])
       s.add_dependency(%q<rdoc>, ["~> 3.12"])
       s.add_dependency(%q<bundler>, [">= 1.0.0"])
       s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
       s.add_dependency(%q<rcov>, [">= 0"])
+      s.add_dependency(%q<ci_reporter>, [">= 1.7.0"])
+      s.add_dependency(%q<flog>, [">= 3.2.0"])
     end
   else
     s.add_dependency(%q<thrift>, ["~> 0.7.0"])
@@ -86,11 +90,13 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<simple_uuid>, ["~> 0.2.0"])
     s.add_dependency(%q<cassandra>, ["~> 0.12.1"])
     s.add_dependency(%q<json>, [">= 1.6.5"])
-    s.add_dependency(%q<rspec>, ["~> 2.8.0"])
+    s.add_dependency(%q<rspec>, [">= 2.8.0"])
     s.add_dependency(%q<rdoc>, ["~> 3.12"])
     s.add_dependency(%q<bundler>, [">= 1.0.0"])
     s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
     s.add_dependency(%q<rcov>, [">= 0"])
+    s.add_dependency(%q<ci_reporter>, [">= 1.7.0"])
+    s.add_dependency(%q<flog>, [">= 3.2.0"])
   end
 end
 
