@@ -92,11 +92,22 @@ describe "bin/priam" do
   
   context "when command = get" do
     context "without value-column option" do
-      context "when key&value exists" do
-        it "should output json" do
-          result = `echo key1 | #{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam get --keyspace PriamTest --column-family PriamCF -h #{@hostname} -p 9160 --verbose #{@stderr_dst}`
-          result.chomp!
-          result.should == '{"d":"val1"}'
+      context "with with-key option" do
+        context "when key&value exists" do
+          it "should output json" do
+            result = `echo key1 | #{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam get --keyspace PriamTest --column-family PriamCF -h #{@hostname} -p 9160 --verbose #{@stderr_dst}`
+            result.chomp!
+            result.should == '{"d":"val1"}'
+          end
+        end
+      end
+      context "without with-key option" do
+        context "when key&value exists" do
+          it "should output json" do
+            result = `echo key1 | #{Priam::RUBY_CMD} -I #{Priam::LIB_DIR} #{Priam::BIN_DIR}/priam get --keyspace PriamTest --column-family PriamCF -h #{@hostname} -p 9160 --with-key --verbose #{@stderr_dst}`
+            result.chomp!
+            result.should == ["key1", '{"d":"val1"}'].join("\t")
+          end
         end
       end
     end
