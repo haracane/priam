@@ -16,6 +16,7 @@ module Priam::Core
       
       json_flag = false
       verbose_flag = false
+      with_key_flag = false
       
       next_argv = []
       
@@ -56,6 +57,8 @@ module Priam::Core
           json_flag = true
         when '--verbose'
           verbose_flag = true
+        when '--with-key'
+          with_key_flag = true
         else 
           next_argv.push val
         end
@@ -85,7 +88,8 @@ module Priam::Core
         :output_keys_flag=>output_keys_flag,
         :replication_factor=>replication_factor,
         :json_flag=>json_flag,
-        :verbose_flag=>verbose_flag
+        :verbose_flag=>verbose_flag,
+        :with_key_flag=>with_key_flag
       }
     end
   end

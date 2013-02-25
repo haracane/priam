@@ -8,6 +8,7 @@ module Priam::Command
       column_family = params[:column_family]
       super_column = params[:super_column]
       name = params[:value_column]
+      with_key_flag = params[:with_key_flag]
 
       client = Cassandra.new(keyspace, "#{host}:#{port}")
       
@@ -26,6 +27,10 @@ module Priam::Command
         end
       
         record = Priam.get_column(client, column_family, super_column, key, params)    
+
+        if with_key_flag
+          output_stream.print "#{key}\t"
+        end
         
         if name then
           output_stream.puts "#{record[name]}"
