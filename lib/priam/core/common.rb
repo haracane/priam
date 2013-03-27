@@ -6,7 +6,7 @@ module Priam::Core
       raise_exception_flag = false
       
       unit_size = 10000
-      retry_max_count = 0
+      retry_max_count = 5
       weight_second = 1
 
       check_exist_flag = false
