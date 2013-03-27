@@ -9,7 +9,8 @@ describe Priam::Core::Common do
         result[:port].should == 9160
         result[:raise_exception_flag].should == false
         result[:value_column].should == nil
-        result[:retry_max_count].should == 0
+        result[:retry_max_count].should == 5
+        result[:weight_second].should == 1
         result[:check_exist_flag].should == false
         result[:output_keys_flag].should == false
         result[:replication_factor].should == 1
