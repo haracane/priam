@@ -2,7 +2,7 @@ module Priam::Core
   module Get
     def self.get_column(client, column_family, super_column, key, options={})
       raise_exception_flag = options[:raise_exception_flag]
-      retry_max_count = options[:retry_max_count] || 0
+      retry_max_count = options[:retry_max_count] || 5
       weight_second = options[:weight_second] || 1
       
       retry_count = 0
@@ -17,14 +17,13 @@ module Priam::Core
           if raise_exception_flag then
             raise e
           else
-            backtrace = e.backtrace.map{|s| "  #{s}"}.join("\n")
-            Priam.logger.warn(" #{e.message}(#{e.class.name}): #{backtrace}")
+            Priam.logger.warn("(EXCEPTION)#{e.message}(#{e.class.name}): #{e.backtrace.map{|s| "  #{s}"}.join("\n")}")
             return {}
           end
         else
           retry_count += 1
-          Priam.logger.warn(" #{e.message}(#{e.class.name})")
-          Priam.logger.info(" retry(#{retry_count})")
+          Priam.logger.warn("(EXCEPTION)#{e.message}(#{e.class.name}): #{e.backtrace.map{|s| "  #{s}"}.join("\n")}")
+          Priam.logger.warn("retry(#{retry_count})")
           sleep(weight_second) if weight_second
           retry
         end
