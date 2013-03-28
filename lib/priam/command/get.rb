@@ -9,8 +9,6 @@ module Priam::Command
       super_column = params[:super_column]
       name = params[:value_column]
       with_key_flag = params[:with_key_flag]
-      weight_second = params[:weight_second]
-      retry_max_count = params[:retry_max_count]
 
       client = Cassandra.new(keyspace, "#{host}:#{port}")
       
@@ -28,35 +26,21 @@ module Priam::Command
           next
         end
       
-        retry_count = 0
-        begin
-          record = Priam.get_column(client, column_family, super_column, key, params)    
+        record = Priam.get_column(client, column_family, super_column, key, params)    
 
-          if with_key_flag
-            output_stream.print "#{key}\t"
-          end
+        if with_key_flag
+          output_stream.print "#{key}\t"
+        end
 
-          if name then
-            output_stream.puts "#{record[name]}"
-          else
-            output_stream.puts record.to_json
-          end
-          count += 1
-          if count % 10 == 0 then
-            Priam.logger.info " GET [#{key_list.join(',')}]"
-            key_list.clear
-          end
-          retry_count = 0
-        rescue Exception=>e
-          if retry_count < retry_max_count
-            Priam.logger.warn("(EXCEPTION)#{e.message}(#{e.class.name}): #{e.backtrace.map{|s| "  #{s}"}.join("\n")}")
-            Priam.logger.warn("retry(#{retry_count})")
-            retry_count += 1
-            sleep(weight_second)
-            retry
-          else
-            raise e
-          end
+        if name then
+          output_stream.puts "#{record[name]}"
+        else
+          output_stream.puts record.to_json
+        end
+        count += 1
+        if count % 10 == 0 then
+          Priam.logger.info " GET [#{key_list.join(',')}]"
+          key_list.clear
         end
       end
       
